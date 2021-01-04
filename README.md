@@ -1,20 +1,53 @@
 # AlphaFoldv1 Pipeline
 
+The purpose of this repository is purely for more for **learning purposes** and it's the hope that it may be useful to others.  
+
 The code here was copied directly over from [AlphaFoldv1 github repository](https://github.com/deepmind/deepmind-research/tree/master/alphafold_casp13).
 Copied over as I didn't want to fork the entire deepmind-research reposity. At the moment many have realized that the AlphaFoldv1 code publicly shared is 
-very limited and does not include code for creating the input .trec files or more importantly the folding to produce the folded structure (i.e. PDB file).
+very limited and does not include code for creating the input .trec files or more importantly the **folding to produce the folded structure** (i.e. PDB file).
 The code only produces the distance probabilities (i.e. distograms) and torsion probabilities, which form the constraints used for folding. This repository
-aims to implement the missing preparation of the .trec files and the folding.
+aims to implement the missing preparation of the .trec files and the **folding.**  
 
-## Requirements
+## Disclamer
+My expertise is in Human Genetics and Computional Biology. I have no claims that the implementation is correct and it's more for educational purposes.
 
-## Step 1: Creation of Input trec files
-TO DO - I would like to create my own implementation.  
+## Thanks
+The description in the AlphaFoldv1 Nature paper unfortunately does not have enough information for a scrub like me to implement beyond just running it and producing the same distogram and torsion probabilities. All credit and thanks should go to [**Jinbo Xu**](https://www.ttic.edu/faculty/xu/) for making the various implementation of RaptorX fully open source and available so that others can learn the various aspects of distance-based folding approaches. Jinbo is a pioneer in using distance-based folding approaches that AlphaFoldv1 uses and was the first to show it's value in his [PLoS Computational Biology publication.](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324)
 
+## Setting up
 
-Currently there are two other implementations  
-https://github.com/Urinx/alphafold_pytorch  
+### Dependencies
+
+*   Python 3.6+.
+*   [Abseil 0.8.0](https://github.com/abseil/abseil-py)
+*   [Numpy 1.16](https://numpy.org)
+*   [Six 1.12](https://pypi.org/project/six/)
+*   [Setuptools 41.0.0](https://setuptools.readthedocs.io/en/latest/)
+*   [Sonnet 1.35](https://github.com/deepmind/sonnet)
+*   [TensorFlow 1.14](https://tensorflow.org). Not compatible with TensorFlow
+    2.0+.
+*   [TensorFlow Probability 0.7.0](https://www.tensorflow.org/probability)
+*	[SciPy](https://www.scipy.org/install.html)
+* 	[PyRosetta](http://www.pyrosetta.org/dow)
+
+```
+python3 -m venv alphafold_venv
+source alphafold_venv/bin/activate
+pip install -r alphafold_casp13/requirements.txt
+```
+
+## Step 1: Creation of features for input as .trec file
+DeepMind has provided example input files in trec format for each of their CASP13 submissions. However, most people are interested in trying the prediction on
+their own sequence of interest so will need to generate their own input files. This was described in the [AlphaFoldv1 github repository](https://github.com/deepmind/deepmind-research/tree/master/alphafold_casp13) but there isn't a full implementation. Briefly, this requires doing a multiple sequence alignment (MSA) of your
+protein sequence of interest against a protein database. Using this MSA, features are then extracted and formatted as described into a trec file as input. This 
+[github repository](https://github.com/Urinx/alphafold_pytorch) uses the AlphaFoldv1 models using a PyTorch framework but has a full implementation on how this trec input files can be generated. 
+
+TO DO - I would like to create my own implementation using this code base to build upon that works better with the AlphaFoldv1 existing code even though some of the libraries used may be outdated.  
+
+These are two other great examples on how MSA can be created and features extracted  
 https://github.com/dellacortelab/prospr  
+https://github.com/j3xugit/RaptorX-3DModeling  
+
 
 However both these implementation are again aimed at only producing the distance probabilities (i.e. distograms) and torsion probabilities.
 
@@ -27,7 +60,7 @@ in step 1.
 
 ## Step 3: Folding and creating PDB files
 I decided to create bare minimum code that takes the distance and torsion constraints and uses it to fold the protein. This can be done by using the pickle files
-produced by AlphaFoldv1 and converting them to Rosetta constraints that are then used to fold the protein using PyRosetta.
+produced by AlphaFoldv1 and converting them to Rosetta constraints that are then used to fold the protein using PyRosetta. This may not be the same way that AlphaFoldv1 has implemented the gradient descent to minimize potential energy but it does produce a 3D structure using the approach that RaptorX has implemented.
 
 ```
 #Create torsion stat files
@@ -43,12 +76,17 @@ python fold.py --fasta 5W9F.fasta --constraints test --out test4.pdb
 This code that produces the constraint and folding has been adapted from the [RaptorX-3DModelling](https://github.com/j3xugit/RaptorX-3DModeling)
 
 ## TO DO
-
+Probably a lot of things ... but where can one for time? :o)
 
 ## References and Readings
-
-
-
+1. [AlphaFoldv1 github](https://github.com/deepmind/deepmind-research/tree/master/alphafold_casp13) 
+2. Improved protein structure prediction using potentials from deep learning. Senior AW et. al. Nature. 2020 Jan;577(7792):706-710. [PMID: 31942072](https://pubmed.ncbi.nlm.nih.gov/31942072/)
+3. Protein structure prediction using multiple deep neural networks in the 13th Critical Assessment of Protein Structure Prediction (CASP13). Senior AW et. al. Proteins
+. 2019 Dec;87(12):1141-1148. [PMID: 31602685](https://pubmed.ncbi.nlm.nih.gov/31602685/)
+4. [RaptorX-3DModelling github](https://github.com/j3xugit/RaptorX-3DModeling)
+5. Distance-based protein folding powered by deep learning. Xu J. Proc Natl Acad Sci USA. 2019 Aug 20;116(34):16856-16865. [PMID: 31399549](https://pubmed.ncbi.nlm.nih.gov/31399549/)
+6. Analysis of distance-based protein structure prediction by deep learning in CASP13. Xu J and Wang S. Proteins. 2019 Dec;87(12):1069-1081. [PMID: 31471916](https://pubmed.ncbi.nlm.nih.gov/31471916/)
+7. Accurate De Novo Prediction of Protein Contact Map by Ultra-Deep Learning Model. Wang et. al. PLoS Comput Biol. 2017 Jan 5;13(1):e1005324. [PMID: 28056090](https://pubmed.ncbi.nlm.nih.gov/28056090/)
 
 
 
