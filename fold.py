@@ -1,3 +1,14 @@
+'''
+Code adapted from the various files from the RaptorX-3DModeling github repository
+https://github.com/j3xugit/RaptorX-3DModeling
+
+Namely these files:
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/Folding/Scripts4Rosetta/FoldNRelax.py
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/Folding/Scripts4Rosetta/GeneratePairPotential4Rosetta.py
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/Folding/GenPairwisePotentialFromPrediction.py
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/DL4DistancePrediction4/config.py
+'''
+
 import numpy as np
 import argparse
 

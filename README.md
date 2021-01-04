@@ -10,7 +10,9 @@ aims to implement the missing preparation of the .trec files and the folding.
 
 ## Creation of Input trec files
 TO DO  
-Currently there are two other implementation  
+
+
+Currently there are two other implementations  
 https://github.com/Urinx/alphafold_pytorch  
 https://github.com/dellacortelab/prospr  
 

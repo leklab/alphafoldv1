@@ -1,3 +1,13 @@
+'''
+Code adapted from the various files from the RaptorX-3DModeling github repository
+https://github.com/j3xugit/RaptorX-3DModeling
+
+Namely these files:
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/Folding/Scripts4Rosetta/FoldNRelax.py
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/Folding/Scripts4Rosetta/GeneratePairPotential4Rosetta.py
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/Folding/GenPairwisePotentialFromPrediction.py
+https://github.com/j3xugit/RaptorX-3DModeling/blob/master/DL4DistancePrediction4/config.py
+'''
 
 import pickle
 import tensorflow as tf  
@@ -6,7 +16,6 @@ from scipy.stats import vonmises
 import os
 import argparse
 
-#{'min_range': 2.0, 'max_range': 20.0, 'num_bins': 64
 
 distCutoffs = np.array( [0] + np.linspace(2.0, 20.0, num=62).tolist() ).astype(np.float32)
 eps = np.finfo(np.float32).eps
