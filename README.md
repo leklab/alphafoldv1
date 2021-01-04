@@ -8,8 +8,8 @@ aims to implement the missing preparation of the .trec files and the folding.
 
 ## Requirements
 
-## Creation of Input trec files
-TO DO  
+## Step 1: Creation of Input trec files
+TO DO - I would like to create my own implementation.  
 
 
 Currently there are two other implementations  
@@ -18,7 +18,14 @@ https://github.com/dellacortelab/prospr
 
 However both these implementation are again aimed at only producing the distance probabilities (i.e. distograms) and torsion probabilities.
 
-## Folding and creating PDB files
+## Step 2: Creation of distance and torsion probabilities
+See the AlphaFoldv1 [Instructions](https://github.com/deepmind/deepmind-research/blob/master/alphafold_casp13/README.md) 
+particular the [run_eval.sh script](https://github.com/deepmind/deepmind-research/blob/master/alphafold_casp13/run_eval.sh)  
+
+Note: This is limited to only the .trec files created for CASP13. To run this on a protein sequence of interest you will need to prepare your own input files detailed
+in step 1.
+
+## Step 3: Folding and creating PDB files
 I decided to create bare minimum code that takes the distance and torsion constraints and uses it to fold the protein. This can be done by using the pickle files
 produced by AlphaFoldv1 and converting them to Rosetta constraints that are then used to fold the protein using PyRosetta.
 
@@ -38,6 +45,7 @@ This code that produces the constraint and folding has been adapted from the [Ra
 ## TO DO
 
 
+## References and Readings
 
 
 
