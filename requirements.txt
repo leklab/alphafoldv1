@@ -5,4 +5,5 @@ six==1.12
 dm-sonnet==1.35
 tensorflow==1.14
 tensorflow-probability==0.7.0
+gast==0.2.2
 scipy
