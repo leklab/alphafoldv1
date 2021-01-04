@@ -1,6 +1,6 @@
 # AlphaFoldv1 Pipeline
 
-The purpose of this repository is purely for more for **learning purposes** and it's the hope that it may be useful to others.  
+The purpose of this repository is purely for (my) **learning purposes** and it's the hope that it may be useful to others.  
 
 The code here was copied directly over from [AlphaFoldv1 github repository](https://github.com/deepmind/deepmind-research/tree/master/alphafold_casp13).
 Copied over as I didn't want to fork the entire deepmind-research reposity. At the moment many have realized that the AlphaFoldv1 code publicly shared is 
@@ -15,6 +15,10 @@ My expertise is in Human Genetics and Computional Biology. I have no claims that
 The description in the AlphaFoldv1 Nature paper unfortunately does not have enough information for a scrub like me to implement beyond just running it and producing the same distogram and torsion probabilities. All credit and thanks should go to [**Jinbo Xu**](https://www.ttic.edu/faculty/xu/) for making the various implementation of RaptorX fully open source and available so that others can learn the various aspects of distance-based folding approaches. Jinbo is a pioneer in using distance-based folding approaches that AlphaFoldv1 uses and was the first to show it's value in his [PLoS Computational Biology publication.](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005324)
 
 ## Setting up
+The dependencies below were taken the AlphaFoldv1 dependencies section. There are a few notable differences:
+* gast version 0.2.2 is enforced to remove incompatibility [issues](https://github.com/tensorflow/tensorflow/issues/32859) with later versions.
+* SciPy is needed for the Von Mises distribution
+* PyRosetta is needed for the folding. You will need a license to install. Thankfully academic license is free and receiving one is fully automated.
 
 ### Dependencies
 
@@ -76,7 +80,7 @@ python fold.py --fasta 5W9F.fasta --constraints test --out test4.pdb
 This code that produces the constraint and folding has been adapted from the [RaptorX-3DModelling](https://github.com/j3xugit/RaptorX-3DModeling)
 
 ## TO DO
-Probably a lot of things ... but where can one for time? :o)
+Probably a lot of things ... but where can one find the time? :o)
 
 ## References and Readings
 1. [AlphaFoldv1 github](https://github.com/deepmind/deepmind-research/tree/master/alphafold_casp13) 

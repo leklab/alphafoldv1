@@ -146,20 +146,17 @@ def Fold(pose, ncycles=1000, tolerance=0.0001, UseNBList=True, UsePerturbation=F
 	mmap.set_jump(True)
 	mmap.show()
 
-	#scriptdir = os.path.dirname(os.path.realpath(__file__))
-	scriptdir = '/home/ml2529/alphafold/RaptorX-3DModeling/Folding/Scripts4Rosetta'
-
 	sf = ScoreFunction()
-	sf.add_weights_from_file(scriptdir + '/params/scorefxn.wts')
+	sf.add_weights_from_file('params/scorefxn.wts')
 
 	sf1 = ScoreFunction()
-	sf1.add_weights_from_file(scriptdir + '/params/scorefxn1.wts')
+	sf1.add_weights_from_file('params/scorefxn1.wts')
 
 	sf_vdw = ScoreFunction()
-	sf_vdw.add_weights_from_file(scriptdir + '/params/scorefxn_vdw.wts')
+	sf_vdw.add_weights_from_file('params/scorefxn_vdw.wts')
 
 	sf_cart = ScoreFunction()
-	sf_cart.add_weights_from_file(scriptdir + '/params/scorefxn_cart.wts')
+	sf_cart.add_weights_from_file('params/scorefxn_cart.wts')
 
 	min_mover = MinMover(mmap, sf, 'lbfgs_armijo_nonmonotone', tolerance, True)
 	min_mover.max_iter(ncycles)
