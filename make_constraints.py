@@ -4,7 +4,7 @@ import tensorflow as tf
 import numpy as np
 from scipy.stats import vonmises
 import os
-
+import argparse
 
 #{'min_range': 2.0, 'max_range': 20.0, 'num_bins': 64
 
@@ -69,12 +69,12 @@ def CalcPotentialByDFIRE(predDistMatrix, alpha=1.61, largestDistance=18, useWeig
 	cutoff = distCutoffs
 
 	rc = min(cutoff[-1], largestDistance) - 0.001
-	print("Last distance bin value: %f" % rc)
+	#print("Last distance bin value: %f" % rc)
 
 	#highest index before the rc (last distance bin)
 	rc_index = LabelsOfOneDistance(rc, cutoff)
 	#print(cutoff[rc_index])
-	print("Index of last distance bin: %d with value: %f" % (rc_index,cutoff[rc_index]))
+	#print("Index of last distance bin: %d with value: %f" % (rc_index,cutoff[rc_index]))
 
 
 	binwidths = [ d2 - d1 for d1, d2 in zip(cutoff[:-1], cutoff[1:]) ]
@@ -107,22 +107,22 @@ def CalcPotentialByDFIRE(predDistMatrix, alpha=1.61, largestDistance=18, useWeig
 	potential = np.zeros_like(predDistMatrix)
 	potential[:, :, :rc_index ] = refPot[: rc_index] - obsPot[:, :, :rc_index]
 
-	print("Observed potential")
-	print(obsPot.shape)
+	#print("Observed potential")
+	#print(obsPot.shape)
 
 
-	print("Predicted probability")
-	print(predProb.shape)
-	print(predProb[0][1])
+	#print("Predicted probability")
+	#print(predProb.shape)
+	#print(predProb[0][1])
 
 
 	#Sum of probability if the last value is removed - final valid probabilities
 	validProb = 1 - predProb[:, :, -1]
 	#validProb = np.ones((predProb.shape[0], predProb.shape[1]), dtype=np.float32)
 
-	print("Valid probability")
-	print(validProb.shape)
-	print(validProb[0][1])
+	#print("Valid probability")
+	#print(validProb.shape)
+	#print(validProb[0][1])
 
 
 	#normalize potential based on valid probability
@@ -134,8 +134,8 @@ def CalcPotentialByDFIRE(predDistMatrix, alpha=1.61, largestDistance=18, useWeig
 	
 	#potentials[response] = potential.astype(np.float32)
 	#validProbs[response] = validProb.astype(np.float32)
-	print("Potential shape")
-	print(potential.shape)
+	#print("Potential shape")
+	#print(potential.shape)
 	#return potentials, validProbs
 	return potential
 
@@ -148,9 +148,9 @@ def GenerateSplinePotential4Distance(sequence, pot, minSeqSep=1):
 	allConstraints = []
 
 	x = distCutoffs
-	print(x)
-	print(len(x))
-	print(pot.shape)
+	#print(x)
+	#print(len(x))
+	#print(pot.shape)
 
 	binWidths = [ b-a for a, b in zip(x[1:-1], x[2:]) ]
 	binWidth = np.average(binWidths)
@@ -171,7 +171,7 @@ def GenerateSplinePotential4Distance(sequence, pot, minSeqSep=1):
 	assert secondLabel >= 1
 	assert secondLabel < len(distCutoffs)
 
-	print(secondLabel)
+	#print(secondLabel)
 
 	xk = [ (a+b)/2 for a, b in zip(x[secondLabel:-1], x[secondLabel+1:]) ]
 	xk.append(x[-1] + binWidth/2.)
@@ -402,21 +402,21 @@ def parse_distance_pickle_file(args):
 
 def parse_torsion_pickle_stat(filename):
 
-	f = tf.io.gfile.GFile(filename, 'rb')
+	f = tf.io.gfile.GFile(args.torsion, 'rb')
 	
 	contact_dict = pickle.load(f, encoding='latin1')
 
-	print(contact_dict.keys())
+	#print(contact_dict.keys())
 	PhiPsiList = contact_dict['torsion_stats']
 	sequence = contact_dict['sequence']
 
-	print(PhiPsiList)
+	#print(PhiPsiList)
 	
 	PhiPsiConstraints = GeneratePhiPsiPotential(sequence, PhiPsiList)
-	print(PhiPsiConstraints)
+	#print(PhiPsiConstraints)
 
 	
-	with open('test', 'a') as fh:
+	with open(args.out, 'a') as fh:
 		fh.write('\n'.join(PhiPsiConstraints) )
 	
 
@@ -427,16 +427,16 @@ if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser()
 
-	parser.add_argument('--hist', '-h', help='directory containing histogram files', required=True)
+	parser.add_argument('--hist', help='directory containing histogram files', required=True)
 	parser.add_argument('--distance', '-d', help='Distance probability pickle file', required=True)
 	parser.add_argument('--torsion', '-t', help='Distance probability pickle file', required=True)		
 	parser.add_argument('--out', '-o', help='Rosetta contraint file', required=True)
 
 	args = parser.parse_args()
 
-	parse_pickle_file(args)
+	parse_distance_pickle_file(args)
 
 
 	#parse_pickle_file('test_output/T0955/distogram/ensemble/T0955.pickle')
-	#parse_torsion_pickle_stat('torsion.pickle')
+	parse_torsion_pickle_stat(args)
 
