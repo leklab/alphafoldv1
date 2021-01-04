@@ -1,0 +1,9 @@
+**/data
+**/model
+**/test_output
+**/alphafold_venv
+*.pdb
+test
+**/test_hist
+*.fasta
+*.pickle
