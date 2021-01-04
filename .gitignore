@@ -7,3 +7,4 @@ test
 **/test_hist
 *.fasta
 *.pickle
+*.png
