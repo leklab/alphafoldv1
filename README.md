@@ -66,7 +66,7 @@ in step 1.
 ```
 python3 plot_distogram.py -d test_output/T0955/distogram/ensemble/T0955.pickle -o test.png
 ```
-![Figure 3B](example_images/T0955_distogram.png)
+![Figure 3B](example_images/T0955_distogram.png)  
 This is the equivalent of Figure 3B in the [Nature Publication](https://www.nature.com/articles/s41586-019-1923-7). It's slightly different so not sure why.. but close enough!
 
 ## Step 3: Folding and creating PDB files
@@ -91,7 +91,7 @@ This code that produces the constraint and folding has been adapted from the [Ra
 ```
 python3 make_pdb_image.py --pdb test4.pdb --sec test_output/T0955/torsion/0/secstruct/T0955.ss2 -o T0955_pdb.png
 ```
-![Figure 3A](example_images/T0955_pdb.png)
+![Figure 3A](example_images/T0955_pdb.png)  
 This is the equivalent of Figure 3A in the [Nature Publication](https://www.nature.com/articles/s41586-019-1923-7). Yes, I think it needs rotating as it's not obvious!
 
 
