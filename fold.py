@@ -235,6 +235,8 @@ if __name__ == '__main__':
 		print('ERROR: the folded pose is None')
 		exit(1)
 
+	#DSSP = protocols.moves.DsspMover()
+	#DSSP.apply(pose)
 
 	pose.dump_pdb(args.out)
 
