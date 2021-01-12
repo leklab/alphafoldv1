@@ -19,6 +19,8 @@ The dependencies below were taken the AlphaFoldv1 dependencies section. There ar
 * gast version 0.2.2 is enforced to remove incompatibility [issues](https://github.com/tensorflow/tensorflow/issues/32859) with later versions.
 * SciPy is needed for the Von Mises distribution
 * PyRosetta is needed for the folding. You will need a license to install. Thankfully academic license is free and receiving one is fully automated.
+* matplotlib is needed for plotting the distogram image
+* PyMol is needed to create a 3D image from the PDB file
 
 ### Dependencies
 
@@ -33,6 +35,8 @@ The dependencies below were taken the AlphaFoldv1 dependencies section. There ar
 *   [TensorFlow Probability 0.7.0](https://www.tensorflow.org/probability)
 *	[SciPy](https://www.scipy.org/install.html)
 * 	[PyRosetta](http://www.pyrosetta.org/dow)
+*	[matplotlib](https://matplotlib.org/)
+*	[PyMol](https://pymolwiki.org/index.php/Linux_Install)
 
 ```
 python3 -m venv alphafold_venv
