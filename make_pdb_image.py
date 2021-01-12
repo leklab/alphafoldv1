@@ -75,6 +75,8 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument('--pdb', '-p', help='pdb file', required=True)
 parser.add_argument('--sec', '-s', help='secondary structure prediction file', required=False)
+parser.add_argument('--out', '-o', help='output png file', required=True)
+
 args = parser.parse_args()
 
 pdb_file = args.pdb
@@ -109,7 +111,7 @@ pymol.cmd.show('cartoon')
 #pymol.cmd.set('cartoon', 'automatic')
 
 
-pymol.cmd.png("%s.png"%(pdb_name))
+pymol.cmd.png(args.out)
 #pymol.cmd.save("check.pdb")
 pymol.cmd.quit()
 

@@ -62,6 +62,13 @@ particular the [run_eval.sh script](https://github.com/deepmind/deepmind-researc
 Note: This is limited to only the .trec files created for CASP13. To run this on a protein sequence of interest you will need to prepare your own input files detailed
 in step 1.
 
+### Plotting distogram
+```
+python3 plot_distogram.py -d test_output/T0955/distogram/ensemble/T0955.pickle -o test.png
+```
+<img src="example_images/T0955_distogram.png">
+This is the equivalent of Figure 3B in the [Nature Publication](https://www.nature.com/articles/s41586-019-1923-7). It's slightly different so not sure why.. but close enough!
+
 ## Step 3: Folding and creating PDB files
 I decided to create bare minimum code that takes the distance and torsion constraints and uses it to fold the protein. This can be done by using the pickle files
 produced by AlphaFoldv1 and converting them to Rosetta constraints that are then used to fold the protein using PyRosetta. This may not be the same way that AlphaFoldv1 has implemented the gradient descent to minimize potential energy but it does produce a 3D structure using the approach that RaptorX has implemented.
@@ -78,6 +85,15 @@ python fold.py --fasta 5W9F.fasta --constraints test --out test4.pdb
 ```
 
 This code that produces the constraint and folding has been adapted from the [RaptorX-3DModelling](https://github.com/j3xugit/RaptorX-3DModeling)
+
+### Producing 3D image of PDB file (using PyMol script)
+
+```
+python3 make_pdb_image.py --pdb test4.pdb --sec test_output/T0955/torsion/0/secstruct/T0955.ss2 -o T0955_pdb.png
+```
+<img src="example_images/T0955_pdb.png">
+This is the equivalent of Figure 3A in the [Nature Publication](https://www.nature.com/articles/s41586-019-1923-7). Yes, I think it needs rotating as it's not obvious!
+
 
 ## TO DO
 Probably a lot of things ... but where can one find the time? :o)
